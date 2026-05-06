@@ -1,11 +1,17 @@
 import coffee from "./assets/product.png";
 import shadow from "./assets/shadow.png";
 import beans from "./assets/beans.png";
+import black from "./assets/blackwhite.jpg";
+import latte from "./assets/latte.jpg";
+import latte1 from "./assets/latte1.jpg";
+import latte2 from "./assets/latte2.jpg";
 import ButtonComp from "./components/ButtonComp";
 import { MdOutlineHexagon } from "react-icons/md";
 import { CiCoffeeCup } from "react-icons/ci";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 
 
@@ -14,6 +20,8 @@ export default function App() {
   const beansRef = useRef(null);
   const shadowRef = useRef(null);
   const espressoRef = useRef(null);
+
+
 
   useEffect(() => {
     const tl = gsap.timeline();
@@ -33,7 +41,7 @@ export default function App() {
       opacity: 0,
       scale: 0.85,
       duration: 0.20,
-      y: 60
+      y: 50
     });
 
     gsap.set(beansRef.current, {
@@ -70,16 +78,34 @@ export default function App() {
       x: 0,
       duration: 1,
       opacity: 1,
-      ease: "sine.in"
+      ease: "sine.in",
     })
 
-    tl.to(coffeeRef.current, {
-      y: -10,
-      duration: 2,
+    gsap.to(coffeeRef.current, {
+      y: -2,
+      duration: 3,
       ease: "sine.inOut",
       repeat: -1,
-      yoyo: true
-    });
+      yoyo : true
+    
+    })
+
+    gsap.set(".explore", {
+      y: 200,
+      opacity: 0,
+      duration: 1
+    })
+
+    gsap.to(".explore", {
+      y: 0,
+      duration: 1,
+      opacity: 1,
+      scrollTrigger: {
+        trigger: ".explore",
+        start: "top 80%",
+        toggleActions: "play none none none",
+      }
+    })
 
 
   }, []);
@@ -88,7 +114,7 @@ export default function App() {
     <>
       <div className="mx-auto p-5">
         <nav className="w-full">
-          <div className="flex items-center justify-between text-green-700">
+          <div className="flex items-center justify-between text-[#E8A736]">
             <div className="flex items-center gap-1">
               <CiCoffeeCup className="text-3xl" />
               <h1 className="font-bold text-lg">Tukopi</h1>
@@ -100,21 +126,21 @@ export default function App() {
               <a className="cursor-pointer ">Store</a>
             </div>
             <div>
-              <ButtonComp text={"Login"} warna={"green"} />
+              <ButtonComp text={"Login"} warna={"yellow"} />
             </div>
           </div>
         </nav>
 
-        <div className="bg-[linear-gradient(191deg,#6B7F2A_0%,#8A9B3C_67%,#4F5F1F_90%)]  rounded-2xl">
+        <div className="bg-[#E8A736]  rounded-2xl">
           <div className="mx-auto p-5 mt-5">
             <div className="grid grid-cols-2 gap-4">
 
               <div>
                 <div className="md:pt-5 text-5xl text-[#FBEEE5]">
-                <MdOutlineHexagon />
+                  <MdOutlineHexagon />
                 </div>
-                <h1 ref={espressoRef} className="md:text-8xl text-3xl font-bold text-[#FBEEE5] leading-tight">ESPRESSO YOURSELF</h1>
-                <div className="pt-4">
+                <h1 ref={espressoRef} className="md:text-8xl text-3xl font-bold text-[#FAEFD9] leading-tight">ESPRESSO YOURSELF</h1>
+                <div className="pt-4 ps-3">
                   <ButtonComp text={"Order Now"} warna={"light"} />
                 </div>
               </div >
@@ -125,6 +151,38 @@ export default function App() {
                 <img ref={coffeeRef} src={coffee} className="gambar-akhir col-start-1 row-start-1 w-1xl relative z-5  md:h-95 h-20" />
               </div>
 
+            </div>
+
+          </div>
+        </div>
+
+        <div className="mt-10">
+          <div className="flex justify-between">
+            <h1 className="explore text-4xl font-bold text-[#E8A736]">EXPLORE OUR <span className="text-[#6e501d]">COLLECTION</span></h1>
+            <h1 className="text-1xl font-bold text-[#E8A736]">View <span className="text-[#6e501d]">All</span></h1>
+          </div>
+          <div className="grid grid-cols-8 gap-4 mt-10">
+            <div className="col-span-4 relative">
+              <img src={black} className="rounded-2xl  h-105" />
+              <p className="absolute inset-1 flex items-end text-white p-2 pb-10 text-1xl">Coffee Latte</p>
+              <h3 className="absolute inset-0 flex items-end text-white font-bold p-3 text-3xl">Coffee Latte</h3>
+            </div>
+            <div className="col-span-2 relative">
+              <img src={latte} className="rounded-2xl  h-105" />
+              <p className="absolute inset-1 flex items-end text-white p-2 pb-10 text-1xl">Coffee Latte</p>
+              <h3 className="absolute inset-0 flex items-end text-white font-bold p-3 text-3xl">Coffee Latte</h3>
+            </div>
+            <div className="col-span-2">
+              <div className="relative">
+                <img src={latte1} className="rounded-2xl  h-50 w-75" />
+                <p className="absolute inset-1 flex items-end text-white p-2 pb-10 text-1xl">Coffee Latte</p>
+                <h3 className="absolute inset-0 flex items-end text-white font-bold p-3 text-3xl">Coffee Latte</h3>
+              </div>
+              <div className="relative">
+                <img src={latte2} className="rounded-2xl  h-50 w-75 mt-5" />
+                <p className="absolute inset-1 flex items-end text-white p-2 pb-10 text-1xl">Coffee Latte</p>
+                <h3 className="absolute inset-0 flex items-end text-white font-bold p-3 text-3xl">Coffee Latte</h3>
+              </div>
             </div>
 
           </div>
