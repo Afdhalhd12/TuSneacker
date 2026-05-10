@@ -1,158 +1,55 @@
-import coffee from "./assets/product.png";
-import shadow from "./assets/shadow.png";
-import beans from "./assets/beans.png";
-import black from "./assets/beast.jpg";
-import latte from "./assets/latte.jpg";
-import latte1 from "./assets/latte1.jpg";
-import latte2 from "./assets/latte2.jpg";
-import cafee from "./assets/cafee.jpg";
-import italian from "./assets/italian.jpg";
-import croisant from "./assets/bar.jpg";
-import hot from "./assets/tuang.jpg";
 import ButtonComp from "./components/ButtonComp";
 import { MdOutlineHexagon } from "react-icons/md";
 import { CiCoffeeCup } from "react-icons/ci";
 import { useEffect, useRef } from "react";
+import shoes from "./assets/white-shoes.png";
+import nike from "./assets/nikee.png";
+import black from "./assets/black.jpg";
+import adidas from "./assets/adidas.jpg";
+import white from "./assets/white.jpg";
+import red from "./assets/red.jpg";
+import brown from "./assets/brown.jpg";
+import sell from "./assets/white-sell.png";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { FaTruckFast } from "react-icons/fa6";
+import { FaShieldAlt } from "react-icons/fa";
+import { RiCustomerService2Fill } from "react-icons/ri";
+import CardCommerce from "./components/CardCommerce";
+import NavBar from "./components/NavBar";
 gsap.registerPlugin(ScrollTrigger);
 
 
 
 export default function App() {
-  const coffeeRef = useRef(null);
-  const beansRef = useRef(null);
-  const shadowRef = useRef(null);
-  const espressoRef = useRef(null);
 
 
 
-  useEffect(() => {
-    const tl = gsap.timeline();
-
-    gsap.set(espressoRef.current, {
-      x: 600,
-      opacity: 0,
-      duration: 0.50
-    })
-
-    gsap.set(shadowRef.current, {
-      scale: 0.20,
-      duration: 0.10
-    })
-
-    gsap.set(coffeeRef.current, {
-      opacity: 0,
-      scale: 0.85,
-      duration: 0.20,
-      y: 50
-    });
-
-    gsap.set(beansRef.current, {
-      opacity: 0,
-      rotate: -20,
-      scale: 0.1,
-    });
-
-    tl.to(shadowRef.current, {
-      opacity: 1,
-      scale: 1,
-      duration: 0.85,
-      y: 0
-    });
-
-    tl.to(coffeeRef.current, {
-      opacity: 1,
-      scale: 1,
-      left: 10,
-      rotate: 10,
-      duration: 0.85,
-      y: 0
-    });
-
-    tl.to(beansRef.current, {
-      opacity: 1,
-      rotate: 0,
-      scale: 1,
-      duration: 0.9,
-      ease: "back.out(1.4)",
-    });
-
-    tl.to(espressoRef.current, {
-      x: 0,
-      duration: 1,
-      opacity: 1,
-      ease: "sine.in",
-    })
-
-    gsap.to(coffeeRef.current, {
-      y: -2,
-      duration: 3,
-      ease: "sine.inOut",
-      repeat: -1,
-      yoyo: true
-
-    })
-
-    gsap.set(".explore", {
-      y: 200,
-      opacity: 0,
-      duration: 1
-    })
-
-    gsap.to(".explore", {
-      y: 0,
-      duration: 1,
-      opacity: 1,
-      scrollTrigger: {
-        trigger: ".explore",
-        start: "top 80%",
-        toggleActions: "play none none none",
-      }
-    })
 
 
-  }, []);
 
   return (
     <>
-      <div className="mx-auto p-5">
-        <nav className="w-full">
-          <div className="flex items-center justify-between text-[#E8A736]">
-            <div className="flex items-center gap-1">
-              <CiCoffeeCup className="text-3xl" />
-              <h1 className="font-bold text-lg">Tukopi</h1>
-            </div>
-            <div className="md:flex items-center gap-8">
-              <a className="cursor-pointer ">Stories</a>
-              <a className="cursor-pointer ">Coffee</a>
-              <a className="cursor-pointer ">Equipment</a>
-              <a className="cursor-pointer ">Store</a>
-            </div>
-            <div>
-              <ButtonComp text={"Login"} warna={"yellow"} />
-            </div>
-          </div>
-        </nav>
-
-        <div className="bg-[#E8A736]  rounded-2xl">
-          <div className="mx-auto p-5 mt-5">
+      <div className="px-10">
+        <div className="bg-[url('./assets/bg-hero.png')] md:h-110 bg-position-[50%_30%] h-screen rounded-2xl">
+          <div className="mx-auto p-10 mt-5">
             <div className="grid grid-cols-2 gap-4">
 
               <div>
                 <div className="md:pt-5 text-5xl text-[#FBEEE5]">
                   <MdOutlineHexagon />
                 </div>
-                <h1 ref={espressoRef} className="md:text-8xl text-3xl font-bold text-[#FAEFD9] leading-tight">ESPRESSO YOURSELF</h1>
+                <h1 className="md:text-8xl text-3xl font-bold text-[#ffffff] leading-tight translate-x-20 font-oswald">ESPRESSO</h1>
+                <h1 className="md:text-8xl text-3xl font-bold text-[#D4F931] leading-tight font-oswald">YOURSELF</h1>
                 <div className="pt-4 ps-3">
-                  <ButtonComp text={"Order Now"} warna={"light"} />
+                  <ButtonComp text={"Order Now"} styling={"rounded-full border border-[#E5E5E5] font-inter p-2 text-sm bg-white"} />
                 </div>
               </div >
 
               <div className="mx-auto grid place-items-center">
-                <img ref={shadowRef} src={shadow} className="gambar-awal col-start-1 row-start-1 md:w-100 md:h-100  translate-x-1 translate-y-1 z-1" />
-                <img ref={beansRef} src={beans} className="gambar-awal col-start-1 row-start-1 md:w-600 md:h-100  translate-x-1 -translate-y-5 z-2" />
-                <img ref={coffeeRef} src={coffee} className="gambar-akhir col-start-1 row-start-1 w-1xl relative z-5  md:h-95 h-20" />
+                <img src={nike} className="gambar-awal col-start-1 row-start-1 md:w-120 md:h-100  translate-x-1 translate-y-1 z-1" />
+                <img src={shoes} className="gambar-awal col-start-1 row-start-1 md:w-600 md:h-100  translate-x-1 -translate-y-5 z-2" />
+                {/* <img  src="" className="gambar-akhir col-start-1 row-start-1 w-1xl relative z-5  md:h-95 h-20" /> */}
               </div>
 
             </div>
@@ -162,53 +59,96 @@ export default function App() {
         {/* Coffee */}
         <div className="mt-10">
           <div className="flex justify-between">
-            <h1 className="explore text-4xl font-bold text-[#E8A736] font-serif">EXPLORE OUR <span className="text-[#6e501d]">COLLECTION</span></h1>
-            <h1 className="text-1xl font-bold text-[#E8A736] font-serif">View <span className="text-[#6e501d]">All</span></h1>
+            <h1 className="explore text-4xl font-bold text-[#200F07] font-oswald">EXPLORE OUR <span className="text-[#737373]">COLLECTION</span></h1>
+            <div className="mt-4">
+              <h1 className="text-sm font-semibold text-[#200F07] font-inter">VIEW ALL —</h1>
+            </div>
           </div>
           <div className="grid grid-cols-8 gap-4 mt-10">
             <div className="col-span-4 relative">
               <img src={black} className="rounded-2xl  h-105" />
-              <p className="absolute inset-1 flex items-end text-white p-2 pb-10 text-1xl font-serif">Coffee Latte</p>
-              <h3 className="absolute inset-0 flex items-end text-white font-bold p-3 text-3xl font-serif">Coffee Latte</h3>
+              <p className="absolute inset-1 flex items-end text-white/60 p-2 pb-10 text-sm font-inter">124 Item</p>
+              <h3 className="absolute inset-0 flex items-end text-white font-bold p-3 text-3xl font-oswald">Black Edition</h3>
             </div>
-            <div className="col-span-2 relative">
-              <img src={italian} className="rounded-2xl  h-105 w-80" />
-              <p className="absolute inset-1 flex items-end text-white p-2 pb-10 text-1xl font-serif">Coffee Latte</p>
-              <h3 className="absolute inset-0 flex items-end text-white font-bold p-3 text-3xl font-serif">Coffee Latte</h3>
+            <div className="col-span-2 relative w-fit overflow-hidden rounded-2xl">
+              <img src={white} className="h-105 w-80 rounded-2xl object-cover" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/70 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-5">
+                <div>
+                  <p className="text-sm font-inter text-white/60">
+                    20 Item
+                  </p>
+
+                  <h3 className="font-oswald text-3xl font-bold text-white">
+                    Pure Motion
+                  </h3>
+                </div>
+                <button
+                  className="flex h-10 w-10 items-center  justify-center rounded-full bg-white text-black transition hover:scale-105">
+                  →
+                </button>
+              </div>
             </div>
             <div className="col-span-2">
               <div className="relative">
-                <img src={hot} className="rounded-2xl  h-50 w-75" />
-                <p className="absolute inset-1 flex items-end text-white p-2 pb-10 text-1xl font-serif">Coffee Latte</p>
-                <h3 className="absolute inset-0 flex items-end text-white font-bold p-3 text-3xl font-serif">Coffee Latte</h3>
+                <img src={red} className="rounded-2xl  h-50 w-75" />
+                <p className="absolute inset-1 flex items-end text-white/60 p-2 pb-10 text-sm font-inter">60 Item</p>
+                <h3 className="absolute inset-0 flex items-end text-white font-bold p-3 text-3xl font-oswald">Red Impact</h3>
               </div>
               <div className="relative">
-                <img src={croisant} className="rounded-2xl  h-50 w-75 mt-5" />
-                <p className="absolute inset-1 flex items-end text-white p-2 pb-10 text-1xl font-serif">Coffee Latte</p>
-                <h3 className="absolute inset-0 flex items-end text-white font-bold p-3 text-3xl font-serif">Coffee Latte</h3>
+                <img src={brown} className="rounded-2xl  h-50 w-75 mt-5" />
+                <p className="absolute inset-1 flex items-end text-white/60 p-2 pb-10 text-sm font-inter">50 Item</p>
+                <h3 className="absolute inset-0 flex items-end text-white font-bold p-3 text-3xl font-oswald">Golden Street</h3>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="mt-10">
-          <h1 className="explore text-4xl font-bold text-[#E8A736] font-serif">EXPLORE OUR <span className="text-[#6e501d]">COLLECTION</span></h1>
+        {/* jualan */}
+        <div className="mt-20">
+          <div>
+            <h1 className="text-center text-4xl font-oswald">BRAND NEW STYLES <span className="text-[#737373]">REVEALED</span> </h1>
+            <p className="text-center text-[#737373] text-sm font-inter mt-2">Step into the latest drop designed for comfort, built for durability, and <br /> made to stand out wherever you go.</p>
+          </div>
+
+          <div className="grid grid-cols-12 gap-4 mt-10">
+
+            <div className="col-span-4">
+              <CardCommerce foto={sell} />
+            </div>
+            <div className="col-span-4">
+              <CardCommerce foto={sell} />
+            </div>
+            <div className="col-span-4">
+              <CardCommerce foto={sell} />
+            </div>
+
+          </div>
+          <div className="flex justify-center mt-10 font-black">
+            <ButtonComp styling={"rounded-full border border-[#E5E5E5] font-inter p-2 text-sm bg-white"} text={"EXPLORE FULL COLLECTION"} />
+          </div>
+        </div>
+
+        <div className="mt-20">
+          <h1 className="explore text-4xl font-bold text-[#200F07] font-oswald">WHY CHOOSE <span className="text-[#737373]">TUSNEAKER.</span></h1>
           <div className="mt-5">
             <div className="grid grid-cols-8 gap-5">
               <div className="col-span-4">
 
+
+
                 <div className="mt-5">
-                  <div className="shadow-2xl bg-[#eeeeec] rounded-2xl">
+                  <div className="bg-[#F5F5F5] rounded-2xl border border-[#E5E5E5]">
                     <div className="grid grid-cols-8">
-                      <div className="col-span-2">
-                        <div className="p-3">
-                          <img src={latte} className="rounded-2xl h-25 w-25" />
+                      <div className="col-span-2 flex items-center justify-center p-3">
+                        <div className="bg-white rounded-2xl p-3 flex items-center justify-center">
+                          <FaTruckFast size={48} className="text-black" />
                         </div>
                       </div>
                       <div className="col-span-6">
                         <div className="p-3">
-                          <h1 className="font-bold text-3xl text-black font-serif">Latte</h1>
-                          <p className="text-gray-700 font-serif">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur, nam magni doloremque sequi doloribus placeat eveniet, asperiores odit minus deleniti</p>
+                          <h1 className="font-bold text-2xl text-black font-oswald">Free Worldwide Shipping</h1>
+                          <p className="text-[#737373] text-sm font-inter mt-3">Free shipping on all orders over $150. Delivered to your doorstep within 5–7 business days with safe and reliable worldwide delivery service.</p>
                         </div>
                       </div>
                     </div>
@@ -216,17 +156,17 @@ export default function App() {
                 </div>
 
                 <div className="mt-5">
-                  <div className="shadow-2xl bg-[#E8A736] rounded-2xl">
+                  <div className="bg-[#F5F5F5] rounded-2xl border border-[#E5E5E5]">
                     <div className="grid grid-cols-8">
-                      <div className="col-span-2">
-                        <div className="p-3">
-                          <img src={latte} className="rounded-2xl h-25 w-25" />
+                      <div className="col-span-2 flex items-center justify-center p-3">
+                        <div className="bg-white rounded-2xl p-3 flex items-center justify-center">
+                          <FaShieldAlt size={48} className="text-black" />
                         </div>
                       </div>
                       <div className="col-span-6">
                         <div className="p-3">
-                          <h1 className="font-bold text-3xl text-white font-serif">Latte</h1>
-                          <p className="text-white font-serif">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur, nam magni doloremque sequi doloribus placeat eveniet, asperiores odit minus deleniti</p>
+                          <h1 className="font-bold text-2xl text-black font-oswald">Secure Checkout</h1>
+                          <p className="text-[#737373] text-sm font-inter mt-3">Your payment information is encrypted and secure. Shop with confidence and convenience.</p>
                         </div>
                       </div>
                     </div>
@@ -234,29 +174,62 @@ export default function App() {
                 </div>
 
                 <div className="mt-5">
-                  <div className="shadow-2xl bg-black rounded-2xl">
+                  <div className="bg-[#F5F5F5] rounded-2xl border border-[#E5E5E5]">
                     <div className="grid grid-cols-8">
-                      <div className="col-span-2">
-                        <div className="p-3">
-                          <img src={latte} className="rounded-2xl h-25 w-25" />
+                      <div className="col-span-2 flex items-center justify-center p-3">
+                        <div className="bg-white rounded-2xl p-3 flex items-center justify-center">
+                          <RiCustomerService2Fill size={48} className="text-black" />
                         </div>
                       </div>
                       <div className="col-span-6">
                         <div className="p-3">
-                          <h1 className="font-bold text-3xl text-white font-serif">Latte</h1>
-                          <p className="text-white font-serif">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur, nam magni doloremque sequi doloribus placeat eveniet, asperiores odit minus deleniti</p>
+                          <h1 className="font-bold text-2xl text-black font-oswald">24/7 Customer Support</h1>
+                          <p className="text-[#737373] text-sm font-inter mt-3">Our dedicated team is here to help you anytime, anywhere providing fast, friendly, and reliable assistance whenever you need it.</p>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                
+
               </div>
 
               <div className="col-span-4">
-              <div className="mt-5">
-                <img src={black} className="rounded-2xl w-160 h-109"/>
+                <div className="mt-5">
+                  <img src={adidas} className="rounded-2xl md:w-160 md:h-102" />
+                </div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-27">
+          <div className="bg-[url('./assets/Card.png')] md:h-100 md:min-w-max bg-position-[20%_30%] h-screen rounded-2xl" >
+            <div className="mx-auto p-20">
+              <div className="grid grid-cols-8 gap-10">
+                <div className="col-span-4">
+                  <p className="text-7xl font-oswald"><span className="text-white">GET 15% OFF</span> <br />
+                    <span className="text-[#D4F931]">YOUR FIRST </span> <br />
+                    <span className="text-[#737373]">ORDER.</span></p>
+                </div>
+                <div className="col-span-4">
+                  <div className="border border-[#737373] bg-black/60 rounded-2xl md:w-50">
+                    <div className="p-2">
+                      <p className="text-[10px] font-inter text-[#D4F931] px-2 font-semibold">● JOIN 50,000+ SUBSCRIBERS</p>
+                    </div>
+                  </div>
+                  <div className="mt-5">
+                    <p className="font-inter text-white/60">Subscribe to our exclusive newsletter and be the first to <br /> know about new digital drops, limited offers, and boundary <br />pushing style tips.</p>
+                  </div>
+                  <div className="mt-5 relative max-w-lg">
+                    <input type="email" placeholder="Enter your email address..." className="bg-white rounded-full w-full md:h-15 px-5 backdrop-blur outline-[#D4F931] hover:shadow-[#D4F931]" />
+                    <div className="">
+                      <button className="absolute right-2 top-1/2 -translate-y-1/2 font-inter  rounded-full bg-[#D4F931] px-5 py-2 font-medium text-black">SUBSCRIBE →</button>
+                    </div>
+                  </div>
+                  <div className="mt-5">
+                    <p className="text-white/60 text-[10px] font-inter">By subscribing, you agree to our <a href="#" className="text-[#D4F931]">Terms of Service</a> and <a href="#" className="text-[#D4F931]">Privacy Policy.</a></p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

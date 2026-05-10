@@ -1,8 +1,10 @@
-import { Button } from "flowbite-react";
-export default function ButtonComp({text, warna}) {
+
+export default function ButtonComp({ text, styling }) {
     return (
         <>
-            <Button color={warna}>{text}</Button>
+            <button className={styling}>
+                {text}
+            </button>
         </>
     )
 }

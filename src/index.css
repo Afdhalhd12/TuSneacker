@@ -6,4 +6,27 @@ body{
     /* background-color:#FAEFD9 ; */
 }
 
+.font-oswald{
+    font-family: "Oswald", "san-serif";
+}
 
+.font-inter{
+    font-family: "Inter", "sans-serif";
+}
+
+
+
+@font-face {
+  font-family: 'Oswald';
+  src: url('../src/assets/fonts/Oswald-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../src/assets/fonts/Inter_18pt-Medium.ttf');
+}
+
+@theme{
+  --font-oswald: "Oswald", "sans-serif";
+  --font-inter: "Inter", "sans-serif";
+}
