@@ -1,7 +1,7 @@
 import ButtonComp from "./components/ButtonComp";
 import { MdOutlineHexagon } from "react-icons/md";
 import { CiCoffeeCup } from "react-icons/ci";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import shoes from "./assets/white-shoes.png";
 import nike from "./assets/nikee.png";
 import black from "./assets/black.jpg";
@@ -17,14 +17,34 @@ import { FaShieldAlt } from "react-icons/fa";
 import { RiCustomerService2Fill } from "react-icons/ri";
 import CardCommerce from "./components/CardCommerce";
 import NavBar from "./components/NavBar";
+import { useNavigate } from "react-router-dom";
 gsap.registerPlugin(ScrollTrigger);
 
 
 
 export default function App() {
+  const [products, setProducts] = useState([]);
 
+  async function getProducts() {
+    const url = "http://localhost:3000/product?limit=3&page=1";
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
 
+      const result = await response.json();
+      setProducts(result.data.data);
+      console.log(products);
 
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  useEffect(() => {
+    getProducts();
+  }, []);
 
 
 
@@ -39,7 +59,7 @@ export default function App() {
                 <div className="md:pt-5 text-5xl text-[#FBEEE5]">
                   <MdOutlineHexagon />
                 </div>
-                <h1 className="md:text-8xl text-3xl font-bold text-[#ffffff] leading-tight translate-x-20 font-oswald">ESPRESSO</h1>
+                <h1 className="md:text-8xl text-3xl font-bold text-[#ffffff] leading-tight translate-x-20 font-oswald">ESSPRESO</h1>
                 <h1 className="md:text-8xl text-3xl font-bold text-[#D4F931] leading-tight font-oswald">YOURSELF</h1>
                 <div className="pt-4 ps-3">
                   <ButtonComp text={"Order Now"} styling={"rounded-full border border-[#E5E5E5] font-inter p-2 text-sm bg-white"} />
@@ -111,19 +131,14 @@ export default function App() {
             <p className="text-center text-[#737373] text-sm font-inter mt-2">Step into the latest drop designed for comfort, built for durability, and <br /> made to stand out wherever you go.</p>
           </div>
 
-          <div className="grid grid-cols-12 gap-4 mt-10">
 
-            <div className="col-span-4">
-              <CardCommerce foto={sell} />
-            </div>
-            <div className="col-span-4">
-              <CardCommerce foto={sell} />
-            </div>
-            <div className="col-span-4">
-              <CardCommerce foto={sell} />
-            </div>
 
+          <div className="">
+            <CardCommerce products={products} />
           </div>
+
+
+
           <div className="flex justify-center mt-10 font-black">
             <ButtonComp styling={"rounded-full border border-[#E5E5E5] font-inter p-2 text-sm bg-white"} text={"EXPLORE FULL COLLECTION"} />
           </div>

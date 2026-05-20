@@ -1,7 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ButtonComp from "./buttonComp";
 
 export default function NavBar() {
+    const navigate = useNavigate();
+    const token = localStorage.getItem("token");
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        navigate("/login")
+    }
+
     return (
         <>
             <div className="px-10">
@@ -17,9 +25,18 @@ export default function NavBar() {
                             <a className="cursor-pointer text-[#0A0A0A] font-inter">Store</a>
                         </div>
                         <div>
-                            <Link to="/login">
-                                <ButtonComp text={"Login"} styling={"rounded-full border border-[#E5E5E5] font-inter md:w-20 p-2 text-sm bg-[#D4F931]"} />
-                            </Link>
+
+                            {
+                                !token ? 
+                                <Link to="/login" >
+                                <button className="rounded-full border border-[#E5E5E5] font-inter md:w-20 p-2 text-sm bg-[#D4F931]">Login</button> 
+                                </Link>
+                                : 
+                                <button onClick={handleLogout} className="rounded-full border border-[#E5E5E5] font-inter md:w-20 p-2 text-sm bg-red-500 text-white">Sign Out</button>
+
+                            }
+
+
                         </div>
                     </div>
                 </nav>

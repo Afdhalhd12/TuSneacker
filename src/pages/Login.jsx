@@ -1,13 +1,53 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ButtonComp from "../components/ButtonComp";
+import { useState } from "react";
 
 export default function Login() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [message, setMessage] = useState("");
+    const navigate = useNavigate();
+
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await fetch("http://localhost:3000/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type" : "application/json",
+                },
+                body: JSON.stringify({
+                    email,
+                    password
+                }),
+            });
+
+            const data = await response.json();
+            // console.log(data);
+            if (!response.ok) {
+                throw new Error(data.message || "Login gagal");
+            }
+
+            localStorage.setItem("token", data.data.token);
+            navigate("/")
+            setMessage(data.message || "Login berhasil");
+            alert(data.message)
+
+
+        } catch (error) {
+            setMessage(error.message);
+            alert(error.message)
+        }
+    }
     return (
         <>
             <div className="grid grid-cols-1 md:grid-cols-8">
                 <div className="col-span-4">
                     <div className="bg-[url('./assets/login-gambar.png')] bg-position-[70%_80%] md:h-screen h-100">
-                        
+
                     </div>
                 </div>
 
@@ -16,14 +56,15 @@ export default function Login() {
                         <div>
                             <h1 className="font-oswald text-3xl">ACCESS YOUR <span className="text-[#D4F931]">ACCOUNT</span></h1>
                             <p className="font-inter text-[#737373] mt-3">Welcome back to TuSneacker</p>
-                            <form>
+                            <form onSubmit={handleSubmit}>
                                 <div className="mx-auto px-20 mt-10">
-                                    <input type="email" placeholder="Enter your email address..." className="rounded-full w-full md:h-15 px-5 outline-[#D4F931] hover:shadow-[#D4F931] border border-[#D4F931]" />
-                                    <input type="password" placeholder="Enter your password..." className="rounded-full w-full md:h-15 px-5 outline-[#D4F931] hover:shadow-[#D4F931] border border-[#D4F931] mt-5" />
+                                    <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email address..." className="rounded-full w-full md:h-15 px-5 outline-[#D4F931] hover:shadow-[#D4F931] border border-[#D4F931]" />
+                                    <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter your password..." className="rounded-full w-full md:h-15 px-5 outline-[#D4F931] hover:shadow-[#D4F931] border border-[#D4F931] mt-5" />
 
                                     <div className="mt-10">
-                                        <ButtonComp text={"Login"} styling={"rounded-full border-[#D4F931] font-inter p-2 text-sm bg-black text-white w-full "} />
-                                        <p className="font-inter text-[#737373] text-[12px] mt-3">Dont have an account? 
+                                        <button type="submit" className="rounded-full border-[#D4F931] font-inter p-2 text-sm bg-black text-white w-full">Login</button>
+
+                                        <p className="font-inter text-[#737373] text-[12px] mt-3">Dont have an account?
                                             <Link to="/signup">
                                                 <a className="text-[#D4F931] cursor-pointer"> Sign Up</a>
                                             </Link>

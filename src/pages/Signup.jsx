@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ButtonComp from "../components/ButtonComp";
 import { useState } from "react";
 
@@ -7,19 +7,22 @@ export default function Signup() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const formData = new FormData();
-            formData.append("name", name);
-            formData.append("email", email);
-            formData.append("password", password);
-
             const response = await fetch("http://localhost:3000/signup", {
                 method: "POST",
-                body: formData,
+                headers: {
+                    "Content-Type" : "application/json",
+                },
+                body: JSON.stringify({
+                    name,
+                    email,
+                    password
+                }) 
             });
 
             const data = await response.json();
@@ -29,10 +32,9 @@ export default function Signup() {
             }
 
             setMessage(data.message || "Signup berhasil");
+            alert(data.message);
+            navigate('/login');
 
-            setName("");
-            setEmail("");
-            setPassword("");
 
         } catch (error) {
             setMessage(error.message);
