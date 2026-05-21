@@ -3,6 +3,7 @@ import App from "../App";
 import Login from "../pages/Login";
 import Template from "../Template";
 import Signup from "../pages/Signup";
+import Profile from "../pages/Profile";
 
 export const router = createBrowserRouter([
     {
@@ -11,6 +12,7 @@ export const router = createBrowserRouter([
         // Mengisi outlet
         children: [
             { path: "/", element: <App /> },
+            { path: "/profile", element: <Profile /> },
         ]
     },
     {
