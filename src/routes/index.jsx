@@ -4,6 +4,8 @@ import Login from "../pages/Login";
 import Template from "../Template";
 import Signup from "../pages/Signup";
 import Profile from "../pages/Profile";
+import OrderHistory from "../pages/OrderHistory";
+import EditProfile from "../pages/EditProfile";
 
 export const router = createBrowserRouter([
     {
@@ -13,6 +15,8 @@ export const router = createBrowserRouter([
         children: [
             { path: "/", element: <App /> },
             { path: "/profile", element: <Profile /> },
+            { path: "/orderhistory", element: <OrderHistory /> },
+            { path: "/editprofile", element: <EditProfile /> },
         ]
     },
     {

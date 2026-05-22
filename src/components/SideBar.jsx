@@ -2,9 +2,11 @@ import { CiLocationOn, CiSettings } from "react-icons/ci";
 import { IoPerson } from "react-icons/io5";
 import { LuBox } from "react-icons/lu";
 import { MdOutlinePayment } from "react-icons/md";
+import { Link, useLocation } from "react-router-dom";
 
 
 export default function SideBar() {
+    const location = useLocation();
     return (
         <>
             <div>
@@ -15,15 +17,19 @@ export default function SideBar() {
                     </div>
                     <div className="px-4 mb-6 mt-1">
                         <div className="">
-                            <button className="h-full font-inter border-s-5 flex items-center text-[#D4F931]  gap-2 text-[16px] bg-[#f7fce4] w-full p-3 rounded-2xl">
-                                <IoPerson size={20} /> Profile
-                            </button>
+                            <Link to="/profile">
+                                <button className={location.pathname === "/profile" || location.pathname === "/editprofile"  ? "h-full font-inter border-s-5 flex items-center text-[#D4F931]  gap-2 text-[16px] bg-[#f7fce4] w-full p-3 rounded-2xl" : "h-full font-inter flex items-center gap-2 text-[16px] text-[#585757]  w-full p-3 rounded-2xl"}>
+                                    <IoPerson size={20} /> Profile
+                                </button>
+                            </Link>
                         </div>
 
                         <div className="mt-5">
-                            <button className="h-full font-inter flex items-center gap-2 text-[16px] text-[#585757]  w-full p-3 rounded-2xl">
-                                <LuBox size={20} /> Order History
-                            </button>
+                            <Link to="/orderhistory">
+                                <button className={location.pathname === "/orderhistory" ? "h-full font-inter border-s-5 flex items-center text-[#D4F931]  gap-2 text-[16px] bg-[#f7fce4] w-full p-3 rounded-2xl" : "h-full font-inter flex items-center gap-2 text-[16px] text-[#585757]  w-full p-3 rounded-2xl"}>
+                                    <LuBox size={20} /> Order History
+                                </button>
+                            </Link>
                         </div>
 
                         <div className="mt-5">
