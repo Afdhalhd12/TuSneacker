@@ -18,15 +18,17 @@ import { RiCustomerService2Fill } from "react-icons/ri";
 import CardCommerce from "./components/CardCommerce";
 import NavBar from "./components/NavBar";
 import { useNavigate } from "react-router-dom";
+import SwiperComponent from "./components/SwiperComponent";
 gsap.registerPlugin(ScrollTrigger);
 
 
 
 export default function App() {
   const [products, setProducts] = useState([]);
+  
 
   async function getProducts() {
-    const url = "http://localhost:3000/product?limit=3&page=1";
+    const url = `http://localhost:3000/product`;
     try {
       const response = await fetch(url);
       if (!response.ok) {
@@ -50,7 +52,7 @@ export default function App() {
 
   return (
     <>
-      <div className="px-10">
+      <div className="px-10 mt-20">
         <div className="bg-[url('./assets/bg-hero.png')] md:h-110 bg-position-[50%_30%] h-screen rounded-2xl">
           <div className="mx-auto p-10 mt-5">
             <div className="grid grid-cols-2 gap-4">
@@ -134,7 +136,7 @@ export default function App() {
 
 
           <div className="">
-            <CardCommerce products={products} />
+            <SwiperComponent products={products}/>
           </div>
 
 

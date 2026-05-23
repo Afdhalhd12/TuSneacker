@@ -13,8 +13,8 @@ export default function NavBar() {
     return (
         <>
             <div className="">
-                <nav className="fixed z-50 w-full bg-white backdrop-blur-md shadow-md ">
-                    <div className="px-5 p-3 flex items-center justify-between text-[#0A0A0A]">
+                <nav className="fixed top-0 left-0 right-0 z-50 w-full bg-white backdrop-blur-md shadow-md ">
+                    <div className="px-10 p-3 flex items-center justify-between text-[#0A0A0A]">
 
                         <h1 className="font-bold text-3xl">TUSNEACKER<span className="text-[#D4F931]">.</span></h1>
 
