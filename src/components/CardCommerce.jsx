@@ -11,7 +11,6 @@ export default function CardCommerce({ product }) {
                 <p className="font-inter font-bold">{product.price}</p>
             </div>
             <div>
-
                 <p className="text-sm font-inter">{product.category}</p>
             </div>
 

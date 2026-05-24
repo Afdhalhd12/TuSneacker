@@ -6,6 +6,8 @@ import Signup from "../pages/Signup";
 import Profile from "../pages/Profile";
 import OrderHistory from "../pages/OrderHistory";
 import EditProfile from "../pages/EditProfile";
+import ProductList from "../pages/ProductList";
+import DetailProduct from "../pages/DetailProduct";
 
 export const router = createBrowserRouter([
     {
@@ -17,6 +19,8 @@ export const router = createBrowserRouter([
             { path: "/profile", element: <Profile /> },
             { path: "/orderhistory", element: <OrderHistory /> },
             { path: "/editprofile", element: <EditProfile /> },
+            { path: "/productlist", element: <ProductList /> },
+            { path: "/product/:id", element: <DetailProduct /> },
         ]
     },
     {
