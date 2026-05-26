@@ -1,4 +1,7 @@
-export default function FilterComp() {
+import { useState } from "react";
+
+export default function FilterComp({ brands, onBrandChange }) {
+  const [selectedBrand, setSelectedBrand] = useState("");
   return (
     <aside className="fixed left-0 flex flex-col h-screen w-72 bg-white border-r border-gray-100 overflow-y-auto shadow-sm">
 
@@ -58,46 +61,45 @@ export default function FilterComp() {
       </div>
 
       {/* Brand */}
-      <div className="px-4 py-5 border-b border-gray-100">
-        <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.15em] px-2 mb-3">Brand</p>
-        <div className="flex flex-col gap-0.5">
-          <label className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 cursor-pointer group transition-all">
-            <div className="w-4 h-4 rounded border-2 border-gray-300 group-hover:border-[#8bc400] transition-colors flex items-center justify-center flex-shrink-0">
-              <input type="checkbox" className="opacity-0 absolute" />
+      <div className="flex flex-col gap-0.5">
+        {brands.map((item) => (
+          <label
+            key={item.brand}
+            className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 cursor-pointer group transition-all"
+          >
+            <div
+              className={
+                "w-4 h-4 rounded border-2 flex items-center justify-center flex-shrink-0 transition-colors " +
+                (selectedBrand === item.brand
+                  ? "bg-[#8bc400] border-[#8bc400]"
+                  : "border-gray-300")
+              }
+            >
+              <input
+                type="checkbox"
+                checked={selectedBrand === item.brand}
+                className="hidden"
+                onChange={() => {
+                  if (selectedBrand === item.brand) {
+                    setSelectedBrand("");
+                    onBrandChange("");
+                  } else {
+                    setSelectedBrand(item.brand);
+                    onBrandChange(item.brand);
+                  }
+                }}
+              />
+
+              {selectedBrand === item.brand && (
+                <span className="text-white text-[10px]">✓</span>
+              )}
             </div>
-            <span className="text-[13px] text-gray-600 group-hover:text-gray-900 transition-colors flex-1">Nike</span>
+
+            <span className="text-[13px] text-gray-600 group-hover:text-gray-900 transition-colors flex-1">
+              {item.brand}
+            </span>
           </label>
-          <label className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 cursor-pointer group transition-all">
-            <div className="w-4 h-4 rounded border-2 border-gray-300 group-hover:border-[#8bc400] transition-colors flex items-center justify-center flex-shrink-0">
-              <input type="checkbox" className="opacity-0 absolute" />
-            </div>
-            <span className="text-[13px] text-gray-600 group-hover:text-gray-900 transition-colors flex-1">Adidas</span>
-          </label>
-          <label className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 cursor-pointer group transition-all">
-            <div className="w-4 h-4 rounded border-2 border-gray-300 group-hover:border-[#8bc400] transition-colors flex items-center justify-center flex-shrink-0">
-              <input type="checkbox" className="opacity-0 absolute" />
-            </div>
-            <span className="text-[13px] text-gray-600 group-hover:text-gray-900 transition-colors flex-1">New Balance</span>
-          </label>
-          <label className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 cursor-pointer group transition-all">
-            <div className="w-4 h-4 rounded border-2 border-gray-300 group-hover:border-[#8bc400] transition-colors flex items-center justify-center flex-shrink-0">
-              <input type="checkbox" className="opacity-0 absolute" />
-            </div>
-            <span className="text-[13px] text-gray-600 group-hover:text-gray-900 transition-colors flex-1">Puma</span>
-          </label>
-          <label className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 cursor-pointer group transition-all">
-            <div className="w-4 h-4 rounded border-2 border-gray-300 group-hover:border-[#8bc400] transition-colors flex items-center justify-center flex-shrink-0">
-              <input type="checkbox" className="opacity-0 absolute" />
-            </div>
-            <span className="text-[13px] text-gray-600 group-hover:text-gray-900 transition-colors flex-1">Reebok</span>
-          </label>
-          <label className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 cursor-pointer group transition-all">
-            <div className="w-4 h-4 rounded border-2 border-gray-300 group-hover:border-[#8bc400] transition-colors flex items-center justify-center flex-shrink-0">
-              <input type="checkbox" className="opacity-0 absolute" />
-            </div>
-            <span className="text-[13px] text-gray-600 group-hover:text-gray-900 transition-colors flex-1">Vans</span>
-          </label>
-        </div>
+        ))}
       </div>
 
       {/* Ukuran */}
