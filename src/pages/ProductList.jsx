@@ -10,6 +10,8 @@ export default function ProductList() {
     const [search, setSearch] = useState("");
     const [brands, setBrands] = useState([]);
     const [brand, setBrand] = useState("");
+    const [categories, setCategories] = useState([]);
+    const [category, setCategory] = useState("");
     const [sort, setSort] = useState({
         sortBy: "",
         order: "",
@@ -36,6 +38,18 @@ export default function ProductList() {
         }
     }
 
+    async function getCategories() {
+        try {
+            const response = await fetch("http://localhost:3000/product/categories");
+            const result = await response.json();
+
+            setCategories(result.data);
+            console.log(brand);
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
     async function getProducts() {
         let url =
             "http://localhost:3000/product" +
@@ -54,6 +68,10 @@ export default function ProductList() {
             url += "&brand=" + brand;
         }
 
+        if (category) {
+            url += "&category=" + category;
+        }
+
         try {
             const response = await fetch(url);
 
@@ -70,18 +88,21 @@ export default function ProductList() {
 
     useEffect(() => {
         getProducts();
-    }, [currentPage, search, sort, brand]);
+    }, [currentPage, search, sort, brand, category]);
 
     useEffect(() => {
         getBrands();
+    }, []);
+
+    useEffect(() => {
+        getCategories();
     }, []);
 
     return (
         <div className="min-h-screen">
             <div className="grid grid-cols-8">
                 <div className="col-span-2">
-                    <FilterComp brands={brands}
-                        onBrandChange={setBrand} />
+                    <FilterComp brands={brands} onBrandChange={setBrand} categories={categories} onCategoryChange={setCategory} />
                 </div>
 
                 <div className="col-span-6 mt-20 p-8">
@@ -136,7 +157,7 @@ export default function ProductList() {
                             }}
                             className="px-4 py-3 bg-white border border-gray-200 rounded-2xl text-[13px] text-gray-600"
                         >
-                            <option value="">Most Popular</option>
+                            <option value="" unselectable="">Most Popular</option>
                             <option value="cheapest_price">Price: Low to High</option>
                             <option value="most_expensive">Price: High to Low</option>
                             <option value="ascending_alphabet">Alphabet A-Z</option>

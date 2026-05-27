@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function FilterComp({ brands, onBrandChange }) {
+export default function FilterComp({ brands, onBrandChange, categories, onCategoryChange }) {
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   return (
@@ -14,28 +14,25 @@ export default function FilterComp({ brands, onBrandChange }) {
 
       {/* Filter dengan category */}
       <div className="px-4 py-5 border-b border-gray-100">
+
         <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.15em] px-2 mb-3">Category</p>
         <div className="flex flex-col gap-1">
-          <button className="flex items-center justify-between px-3 py-2.5 rounded-xl bg-[#D4F931] group transition-all">
-            <span className="text-[13px] font-semibold text-[#3a5000]">All Footwear</span>
-            <span className="text-[11px] font-semibold bg-[#3a5000] text-[#D4F931] px-2 py-0.5 rounded-full">128</span>
-          </button>
-          <button className="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-gray-50 group transition-all">
-            <span className="text-[13px] text-gray-500 group-hover:text-gray-800 transition-colors">Running</span>
-            <span className="text-[11px] text-gray-400 px-2 py-0.5 rounded-full bg-gray-100">48</span>
-          </button>
-          <button className="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-gray-50 group transition-all">
-            <span className="text-[13px] text-gray-500 group-hover:text-gray-800 transition-colors">Basketball</span>
-            <span className="text-[11px] text-gray-400 px-2 py-0.5 rounded-full bg-gray-100">32</span>
-          </button>
-          <button className="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-gray-50 group transition-all">
-            <span className="text-[13px] text-gray-500 group-hover:text-gray-800 transition-colors">Training</span>
-            <span className="text-[11px] text-gray-400 px-2 py-0.5 rounded-full bg-gray-100">27</span>
-          </button>
-          <button className="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-gray-50 group transition-all">
-            <span className="text-[13px] text-gray-500 group-hover:text-gray-800 transition-colors">Lifestyle</span>
-            <span className="text-[11px] text-gray-400 px-2 py-0.5 rounded-full bg-gray-100">21</span>
-          </button>
+          {
+            categories.map((item) => (
+              <button checked={selectedCategory === item.category} onClick={() => {
+                if (selectedCategory === item.category) {
+                  setSelectedCategory("");
+                  onCategoryChange("");
+                } else {
+                  setSelectedCategory(item.category);
+                  onCategoryChange(item.category);
+                }
+              }} key={item.category} className={"flex items-center justify-between px-3 py-2.5 rounded-xl grou[ transition-all " + (selectedCategory === item.category ? "bg-[#D4F931]" : "hover:bg-gray-50")}  >
+                <span className={"text-[13px] font-semibold " + (selectedCategory === item.category ? "text-[#3a5000]" : "text-gray-500 group-hover:text-gray-800 transition-colors")}>{item.category}</span>
+              </button>
+            ))
+          }
+
         </div>
       </div>
 
@@ -51,7 +48,7 @@ export default function FilterComp({ brands, onBrandChange }) {
               <input className="w-full border border-gray-200 rounded-xl px-3 py-2 text-[13px] text-gray-700 bg-gray-50 focus:outline-none focus:border-[#D4F931] transition-colors" placeholder="Rp 0" />
             </div>
             <div className="flex items-end pb-0.5">
-              <div className="w-3 h-[1px] bg-gray-300 mb-3"></div>
+              <div className="w-3 h-px bg-gray-300 mb-3"></div>
             </div>
             <div className="flex-1">
               <p className="text-[10px] text-gray-400 mb-1.5 font-medium">MAX</p>
