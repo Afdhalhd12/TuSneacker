@@ -7,7 +7,40 @@ import { CiSettings } from "react-icons/ci";
 import SideBar from "../components/SideBar";
 import red from "../assets/red.jpg";
 import ButtonComp from "../components/buttonComp";
+import { useState } from "react";
+import { useEffect } from "react";
 export default function Profile() {
+    const token = localStorage.getItem("token");
+    const [user, setUser] = useState(null);
+
+    async function getProfile() {
+        const url = `http://localhost:3000/me`;
+
+        try {
+            const response = await fetch(url, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(`Response status: ${response.status}`);
+            }
+
+            const result = await response.json();
+            setUser(result.data);
+
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+    useEffect(() => {
+        getProfile();
+    }, []);
+
+    if (!user) {
+        return <div>Loading...</div>;
+    }
     return (
         <div className="bg-[#f8f8f8] min-h-screen">
 
@@ -21,11 +54,11 @@ export default function Profile() {
                         <div className="bg-white shadow rounded-2xl p-5 ">
                             <div className="flex justify-between items-center gap-5">
                                 <div className="flex items-center gap-3">
-                                    <img src={red} className="w-35 h-35 rounded-full" />
+                                    <img src={user.photoProfile} className="w-35 h-35 rounded-full" />
                                     <div className="">
-                                        <p className="font-inter text-3xl mb-2">Afdhal Hadi Solahudin</p>
+                                        <p className="font-inter text-3xl mb-2">{user.name}</p>
                                         <div className="flex gap-5">
-                                            <p className="font-inter text-[#737373] flex gap-1 items-center"><LuMail size={15} />tester@gmail.com</p>
+                                            <p className="font-inter text-[#737373] flex gap-1 items-center"><LuMail size={15} />{user.email}</p>
                                             <p className="font-inter text-[#737373] flex gap-1 items-center"><LuMail size={15} />085775647390</p>
                                         </div>
                                     </div>
@@ -36,7 +69,7 @@ export default function Profile() {
                     </div>
                     <div className="px-10">
                         <div className="grid grid-cols-6 gap-4">
-                            
+
                             <div className="col-span-2">
                                 <div className="bg-white rounded-2xl border border-[#E5E5E5] p-5">
                                     <div className="flex justify-between items-start mb-4">
@@ -54,7 +87,7 @@ export default function Profile() {
                                 <div className="bg-white rounded-2xl border border-[#E5E5E5] p-5">
                                     <div className="flex justify-between items-start mb-4">
                                         <div className="w-10 h-10 bg-[#f8f8f8] border border-[#E5E5E5] rounded-xl flex items-center justify-center">
-                                            <MdFavoriteBorder  size={20} className="text-black" />
+                                            <MdFavoriteBorder size={20} className="text-black" />
                                         </div>
                                         <span className="text-xs text-[#737373]">+2 this month</span>
                                     </div>
@@ -67,7 +100,7 @@ export default function Profile() {
                                 <div className="bg-white rounded-2xl border border-[#E5E5E5] p-5">
                                     <div className="flex justify-between items-start mb-4">
                                         <div className="w-10 h-10 bg-[#f8f8f8] border border-[#E5E5E5] rounded-xl flex items-center justify-center">
-                                            <CiWallet  size={20} className="text-black" />
+                                            <CiWallet size={20} className="text-black" />
                                         </div>
                                         <span className="text-xs text-[#737373]">+2 this month</span>
                                     </div>
