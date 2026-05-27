@@ -12,6 +12,8 @@ export default function ProductList() {
     const [brand, setBrand] = useState("");
     const [categories, setCategories] = useState([]);
     const [category, setCategory] = useState("");
+    const [minPrice, setMinPrice] = useState("");
+    const [maxPrice, setMaxPrice] = useState("");
     const [sort, setSort] = useState({
         sortBy: "",
         order: "",
@@ -72,6 +74,14 @@ export default function ProductList() {
             url += "&category=" + category;
         }
 
+        if (minPrice) {
+            url += "&minPrice=" + minPrice;
+        }
+
+        if (maxPrice) {
+            url += "&maxPrice=" + maxPrice;
+        }
+
         try {
             const response = await fetch(url);
 
@@ -88,7 +98,7 @@ export default function ProductList() {
 
     useEffect(() => {
         getProducts();
-    }, [currentPage, search, sort, brand, category]);
+    }, [currentPage, search, sort, brand, category, minPrice, maxPrice]);
 
     useEffect(() => {
         getBrands();
@@ -102,7 +112,8 @@ export default function ProductList() {
         <div className="min-h-screen">
             <div className="grid grid-cols-8">
                 <div className="col-span-2">
-                    <FilterComp brands={brands} onBrandChange={setBrand} categories={categories} onCategoryChange={setCategory} />
+                    <FilterComp brands={brands} onBrandChange={setBrand} categories={categories} onCategoryChange={setCategory} onMinPriceChange={setMinPrice}
+                        onMaxPriceChange={setMaxPrice} />
                 </div>
 
                 <div className="col-span-6 mt-20 p-8">

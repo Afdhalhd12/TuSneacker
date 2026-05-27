@@ -1,8 +1,10 @@
 import { useState } from "react";
 
-export default function FilterComp({ brands, onBrandChange, categories, onCategoryChange }) {
+export default function FilterComp({ brands, onBrandChange, categories, onCategoryChange, onMinPriceChange, onMaxPriceChange }) {
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
+
+  
   return (
     <aside className="fixed left-0 flex flex-col h-screen w-72 bg-white border-r border-gray-100 overflow-y-auto shadow-sm">
 
@@ -38,21 +40,50 @@ export default function FilterComp({ brands, onBrandChange, categories, onCatego
 
       {/* Harga */}
       <div className="px-4 py-5 border-b border-gray-100">
-        <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.15em] px-2 mb-4">Price Range</p>
+        <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.15em] px-2 mb-4">
+          Price Range
+        </p>
+
         <div className="px-2">
-          <input type="range" min="0" max="5000000" step="50000" defaultValue="2500000"
-            className="w-full accent-[#8bc400] h-1" />
+          {/* <input
+            type="range"
+            min="0"
+            max="5000000"
+            step="50000"
+            defaultValue="2500000"
+            onChange={(e) => onMaxPriceChange(e.target.value)}
+            className="w-full accent-[#8bc400] h-1"
+          /> */}
+
           <div className="flex gap-2 mt-4">
             <div className="flex-1">
-              <p className="text-[10px] text-gray-400 mb-1.5 font-medium">MIN</p>
-              <input className="w-full border border-gray-200 rounded-xl px-3 py-2 text-[13px] text-gray-700 bg-gray-50 focus:outline-none focus:border-[#D4F931] transition-colors" placeholder="Rp 0" />
+              <p className="text-[10px] text-gray-400 mb-1.5 font-medium">
+                MIN
+              </p>
+
+              <input
+                type="number"
+                placeholder="Rp 0"
+                onChange={(e) => onMinPriceChange(e.target.value)}
+                className="w-full border border-gray-200 rounded-xl px-3 py-2 text-[13px] text-gray-700 bg-gray-50 focus:outline-none focus:border-[#D4F931] transition-colors"
+              />
             </div>
+
             <div className="flex items-end pb-0.5">
               <div className="w-3 h-px bg-gray-300 mb-3"></div>
             </div>
+
             <div className="flex-1">
-              <p className="text-[10px] text-gray-400 mb-1.5 font-medium">MAX</p>
-              <input className="w-full border border-gray-200 rounded-xl px-3 py-2 text-[13px] text-gray-700 bg-gray-50 focus:outline-none focus:border-[#D4F931] transition-colors" placeholder="Rp 5.000.000" />
+              <p className="text-[10px] text-gray-400 mb-1.5 font-medium">
+                MAX
+              </p>
+
+              <input
+                type="number"
+                placeholder="Rp 5.000.000"
+                onChange={(e) => onMaxPriceChange(e.target.value)}
+                className="w-full border border-gray-200 rounded-xl px-3 py-2 text-[13px] text-gray-700 bg-gray-50 focus:outline-none focus:border-[#D4F931] transition-colors"
+              />
             </div>
           </div>
         </div>
