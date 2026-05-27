@@ -2,6 +2,7 @@ import { useState } from "react";
 
 export default function FilterComp({ brands, onBrandChange }) {
   const [selectedBrand, setSelectedBrand] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
   return (
     <aside className="fixed left-0 flex flex-col h-screen w-72 bg-white border-r border-gray-100 overflow-y-auto shadow-sm">
 
@@ -11,7 +12,7 @@ export default function FilterComp({ brands, onBrandChange }) {
         <h2 className="text-xl font-bold text-gray-900">Filters</h2>
       </div>
 
-      {/* Categories */}
+      {/* Filter dengan category */}
       <div className="px-4 py-5 border-b border-gray-100">
         <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.15em] px-2 mb-3">Category</p>
         <div className="flex flex-col gap-1">
@@ -61,7 +62,7 @@ export default function FilterComp({ brands, onBrandChange }) {
       </div>
 
       {/* Brand */}
-      <div className="flex flex-col gap-0.5">
+      <div className="flex flex-col px-4 gap-0.5">
         {brands.map((item) => (
           <label
             key={item.brand}
@@ -69,7 +70,7 @@ export default function FilterComp({ brands, onBrandChange }) {
           >
             <div
               className={
-                "w-4 h-4 rounded border-2 flex items-center justify-center flex-shrink-0 transition-colors " +
+                "w-4 h-4 rounded border-2 flex items-center justify-center transition-colors " +
                 (selectedBrand === item.brand
                   ? "bg-[#8bc400] border-[#8bc400]"
                   : "border-gray-300")
@@ -115,13 +116,6 @@ export default function FilterComp({ brands, onBrandChange }) {
           <button className="w-12 h-10 rounded-xl text-[13px] font-medium bg-gray-50 border border-gray-200 text-gray-500 hover:border-[#D4F931] hover:bg-[#f7fce4] hover:text-[#3a5000] transition-all">44</button>
           <button className="w-12 h-10 rounded-xl text-[13px] font-medium bg-gray-50 border border-gray-200 text-gray-500 hover:border-[#D4F931] hover:bg-[#f7fce4] hover:text-[#3a5000] transition-all">45</button>
         </div>
-      </div>
-
-      {/* Apply Button */}
-      <div className="px-4 py-4 mt-auto border-t border-gray-100 bg-white sticky bottom-0">
-        <button className="w-full bg-[#D4F931] text-[#3a5000] font-bold text-[14px] py-3 rounded-2xl hover:bg-[#c2e020] active:scale-95 transition-all shadow-sm">
-          Apply Filters
-        </button>
       </div>
 
     </aside>
