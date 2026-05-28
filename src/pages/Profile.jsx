@@ -9,12 +9,13 @@ import red from "../assets/red.jpg";
 import ButtonComp from "../components/buttonComp";
 import { useState } from "react";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 export default function Profile() {
     const token = localStorage.getItem("token");
     const [user, setUser] = useState(null);
 
     async function getProfile() {
-        const url = `http://localhost:3000/me`;
+        const url = "http://localhost:3000/me";
 
         try {
             const response = await fetch(url, {
@@ -54,7 +55,7 @@ export default function Profile() {
                         <div className="bg-white shadow rounded-2xl p-5 ">
                             <div className="flex justify-between items-center gap-5">
                                 <div className="flex items-center gap-3">
-                                    <img src={user.photoProfile} className="w-35 h-35 rounded-full" />
+                                    <img src={user.photoProfile} className="w-35 h-35 rounded-full object-cover" />
                                     <div className="">
                                         <p className="font-inter text-3xl mb-2">{user.name}</p>
                                         <div className="flex gap-5">
@@ -63,7 +64,9 @@ export default function Profile() {
                                         </div>
                                     </div>
                                 </div>
+                                <Link to={"/editprofile"}>
                                 <ButtonComp text={"Edit Profile"} styling={"rounded-full border border-[#E5E5E5] font-inter p-2 w-40  text-white text-sm bg-black"} />
+                                </Link>
                             </div>
                         </div>
                     </div>

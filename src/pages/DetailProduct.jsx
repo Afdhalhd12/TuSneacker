@@ -13,7 +13,7 @@ export default function DetailProduct() {
     const [selectedSize, setSelectedSize] = useState(null);
 
     async function getProductDetail() {
-        const url = `http://localhost:3000/product/${id}`;
+        const url = "http://localhost:3000/product/" + id;
 
         try {
             const response = await fetch(url, {
