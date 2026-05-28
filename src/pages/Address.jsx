@@ -4,6 +4,7 @@ import { MdOutlineHome, MdOutlineBusinessCenter, MdOutlineAdd, MdOutlineEdit, Md
 import SideBar from "../components/SideBar";
 import ButtonComp from "../components/buttonComp";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 
 export default function Address() {
@@ -48,7 +49,7 @@ export default function Address() {
                 <div className="col-span-6 mt-20">
                     <div className="p-10">
 
-                      
+
                         <div className="bg-white shadow rounded-2xl p-5 mb-6">
                             <div className="flex justify-between items-center">
                                 <div className="flex items-center gap-3">
@@ -62,14 +63,16 @@ export default function Address() {
                                         </p>
                                     </div>
                                 </div>
-                                <ButtonComp
-                                    text={
-                                        <span className="flex items-center gap-1">
-                                            <MdOutlineAdd size={16} /> Add New Address
-                                        </span>
-                                    }
-                                    styling="rounded-full border border-[#E5E5E5] font-inter p-2 px-4 text-white text-sm bg-black"
-                                />
+                                <Link to="/createaddress">
+                                    <ButtonComp
+                                        text={
+                                            <span className="flex items-center gap-1">
+                                                <MdOutlineAdd size={16} /> Add New Address
+                                            </span>
+                                        }
+                                        styling="rounded-full border border-[#E5E5E5] font-inter p-2 px-4 text-white text-sm bg-black"
+                                    />
+                                </Link>
                             </div>
                         </div>
 
@@ -84,8 +87,8 @@ export default function Address() {
                                     <div className="flex justify-between items-start mb-3">
                                         <span
                                             className={`text-xs font-inter px-3 py-1 rounded-full ${address.isPrimary
-                                                    ? "bg-black text-white"
-                                                    : "bg-[#f8f8f8] text-[#737373] border border-[#E5E5E5]"
+                                                ? "bg-black text-white"
+                                                : "bg-[#f8f8f8] text-[#737373] border border-[#E5E5E5]"
                                                 }`}
                                         >
                                             {address.isPrimary ? "Primary" : "Other"}
@@ -101,12 +104,12 @@ export default function Address() {
                                         </div>
                                     </div>
 
-                                    
+
                                     <p className="font-inter font-medium text-base text-black mb-1">
                                         {address.User.name}
                                     </p>
 
-                                    
+
                                     <p className="font-inter text-sm text-[#737373] leading-relaxed">
                                         {address.addressLine}
                                         <br />

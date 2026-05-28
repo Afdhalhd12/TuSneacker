@@ -9,6 +9,7 @@ import EditProfile from "../pages/EditProfile";
 import ProductList from "../pages/ProductList";
 import DetailProduct from "../pages/DetailProduct";
 import Address from "../pages/Address";
+import CreateAddress from "../pages/CreateAddress";
 
 export const router = createBrowserRouter([
     {
@@ -21,6 +22,7 @@ export const router = createBrowserRouter([
             { path: "/orderhistory", element: <OrderHistory /> },
             { path: "/editprofile", element: <EditProfile /> },
             { path: "/address", element: <Address /> },
+            { path: "/createaddress", element: <CreateAddress /> },
             { path: "/productlist", element: <ProductList /> },
             { path: "/product/:id", element: <DetailProduct /> },
         ]

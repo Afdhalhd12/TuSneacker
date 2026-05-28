@@ -33,9 +33,11 @@ export default function SideBar() {
                         </div>
 
                         <div className="mt-5">
-                            <button className="h-full font-inter flex items-center gap-2 text-[16px] text-[#585757]  w-full p-3 rounded-2xl">
+                            <Link to="/address">
+                            <button className={location.pathname === "/address" || location.pathname === "/createaddress" ? "h-full font-inter border-s-5 flex items-center text-[#D4F931]  gap-2 text-[16px] bg-[#f7fce4] w-full p-3 rounded-2xl" : "h-full font-inter flex items-center gap-2 text-[16px] text-[#585757]  w-full p-3 rounded-2xl"}>
                                 <CiLocationOn size={20} /> Address
                             </button>
+                            </Link>
                         </div>
 
                         <div className="mt-5">
