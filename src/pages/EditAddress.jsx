@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SideBar from "../components/SideBar";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import api from "../utils/API";
 
-export default function CreateAddress() {
+export default function EditAddress() {
+    const {id} = useParams();
     const [addressLine, setAddressLine] = useState("");
     const [city, setCity] = useState("");
     const [postalCode, setPostalCode] = useState("");
@@ -11,49 +12,30 @@ export default function CreateAddress() {
     const [notes, setNotes] = useState("");
     const [message, setMessage] = useState("");
     const [isPrimary, setIsPrimary] = useState(false);
+
     const navigate = useNavigate();
 
+    async function getAddress() {
+        try {
+            const response = await api.get("/address/" + id);
+            const address = response.data.data;
+            setAddressLine(address.addressLine);
+            setCity(address.city);
+            setPostalCode(address.postalCode);
+            setLabel(address.label);
+            setNotes(address.notes);
+            setIsPrimary(address.isPrimary);
+            console.log(address.data);
+        } catch (error) {
+            console.log(error.response?.data || error.message);
+        }
+    };
 
-
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     const token = localStorage.getItem("token");
-
-    //     try {
-    //         const response = await fetch("http://localhost:3000/address", {
-    //             method: "POST",
-    //             headers: {
-    //                 Authorization: `Bearer ${token}`,
-    //                 "Content-Type": "application/json"
-    //             },
-    //             body: JSON.stringify({
-    //                 addressLine,
-    //                 city,
-    //                 postalCode,
-    //                 label,
-    //                 notes,
-    //                 isPrimary
-    //             })
-    //         })
-
-    //         const data = await response.json();
-
-    //         if (!response.ok) {
-    //             throw new Error(data.message || "Failed to create address");
-    //         }
-
-    //         setMessage(data.message || "Success");
-    //         alert(data.message);
-    //         navigate('/address');
-    //     } catch (error) {
-    //         setMessage(error.message);
-    //     }
-    // }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await api.post("/address", {
+            const response = await api.put("/address/" + id, {
                 addressLine,
                 city,
                 postalCode,
@@ -69,6 +51,9 @@ export default function CreateAddress() {
             setMessage(error.message);
         }
     }
+    useEffect(() => {
+        getAddress();
+    }, []);
     return (
         <>
             <div className="bg-[#f8f8f8] min-h-screen">
@@ -82,7 +67,7 @@ export default function CreateAddress() {
                             <form onSubmit={handleSubmit} >
                                 <div className="bg-white rounded-2xl w-full shadow p-5">
 
-                                    <p className="font-oswald text-2xl">Create Your Address</p>
+                                    <p className="font-oswald text-2xl">Update Your Address</p>
                                     <hr className="mt-5 text-[#737373]" />
 
                                     {/* <div className="mt-5">

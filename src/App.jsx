@@ -19,9 +19,6 @@ import CardCommerce from "./components/CardCommerce";
 import NavBar from "./components/NavBar";
 import { useNavigate } from "react-router-dom";
 import SwiperComponent from "./components/SwiperComponent";
-gsap.registerPlugin(ScrollTrigger);
-
-
 
 export default function App() {
   const [products, setProducts] = useState([]);

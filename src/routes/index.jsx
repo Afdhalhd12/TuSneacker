@@ -10,6 +10,7 @@ import ProductList from "../pages/ProductList";
 import DetailProduct from "../pages/DetailProduct";
 import Address from "../pages/Address";
 import CreateAddress from "../pages/CreateAddress";
+import EditAddress from "../pages/EditAddress";
 
 export const router = createBrowserRouter([
     {
@@ -23,6 +24,7 @@ export const router = createBrowserRouter([
             { path: "/editprofile", element: <EditProfile /> },
             { path: "/address", element: <Address /> },
             { path: "/createaddress", element: <CreateAddress /> },
+            { path: "/editaddress/:id", element: <EditAddress /> },
             { path: "/productlist", element: <ProductList /> },
             { path: "/product/:id", element: <DetailProduct /> },
         ]

@@ -5,33 +5,65 @@ import SideBar from "../components/SideBar";
 import ButtonComp from "../components/buttonComp";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import api from "../utils/API";
+
 
 
 export default function Address() {
-    const token = localStorage.getItem("token");
     const [addresses, setAddresses] = useState(null);
 
     async function getAddress() {
-        const url = "http://localhost:3000/address";
+        try {
+            const response = await api.get("/address");
+
+            setAddresses(response.data.data);
+        } catch (error) {
+            console.log(error.response?.data || error.message);
+        }
+    };
+
+    async function handleDelete(id) {
+        const confirmDelete = window.confirm("Yakin ingin menghapus alamat ini?");
+
+        if(!confirmDelete){
+            return;
+        }
 
         try {
-            const response = await fetch(url, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+            await api.delete(`/address/${id}`);
 
-            if (!response.ok) {
-                throw new Error(`Response status: ${response.status}`);
-            }
+            // prev digunakan untuk mengambil hasil state sebelumnya
+            setAddresses((prev) => prev.filter((item) => item.id !== id));
 
-            const result = await response.json();
-            setAddresses(result.data);
-
+            alert("Address berhasil dihapus");
         } catch (error) {
-            console.log(error.message);
+            console.log(error.response?.data || error.message);
+            alert("Gagal menghapus address");
         }
     }
+
+
+    // async function getAddress() {
+    //     const url = "http://localhost:3000/address";
+
+    //     try {
+    //         const response = await fetch(url, {
+    //             headers: {
+    //                 Authorization: `Bearer ${token}`,
+    //             },
+    //         });
+
+    //         if (!response.ok) {
+    //             throw new Error(`Response status: ${response.status}`);
+    //         }
+
+    //         const result = await response.json();
+    //         setAddresses(result.data);
+
+    //     } catch (error) {
+    //         console.log(error.message);
+    //     }
+    // }
     useEffect(() => {
         getAddress();
     }, []);
@@ -95,10 +127,12 @@ export default function Address() {
                                         </span>
 
                                         <div className="flex gap-2">
+                                            <Link to={"/editaddress/" + address.id}>
                                             <button className="w-8 h-8 border border-[#E5E5E5] bg-[#f8f8f8] rounded-xl flex items-center justify-center hover:bg-[#E5E5E5] transition">
                                                 <MdOutlineEdit size={15} className="text-[#737373]" />
                                             </button>
-                                            <button className="w-8 h-8 border border-[#E5E5E5] bg-[#f8f8f8] rounded-xl flex items-center justify-center hover:bg-red-50 transition">
+                                            </Link>
+                                            <button onClick={() => handleDelete(address.id)} className="w-8 h-8 border border-[#E5E5E5] bg-[#f8f8f8] rounded-xl flex items-center justify-center hover:bg-red-50 transition">
                                                 <MdOutlineDelete size={15} className="text-red-500" />
                                             </button>
                                         </div>
