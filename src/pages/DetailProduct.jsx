@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import ButtonComp from "../components/ButtonComp";
 import adidas from "../assets/adidas.jpg";
@@ -11,6 +11,7 @@ export default function DetailProduct() {
     const [product, setProduct] = useState(null);
     const [sizes, setSizes] = useState([]);
     const [selectedSize, setSelectedSize] = useState(null);
+    const navigate = useNavigate();
 
     async function getProductDetail() {
         const url = "http://localhost:3000/product/" + id;
@@ -56,6 +57,21 @@ export default function DetailProduct() {
             setSizes([]);
         }
     }
+
+    function handleOrderNow() {
+        if (!selectedSize) {
+            alert("Pilih size terlebih dahulu");
+            return;
+        }
+
+        navigate("/checkout", {
+            state: {
+                product,
+                product_size_id: selectedSize,
+                qty: 1
+            }
+        });
+    };
 
     useEffect(() => {
         getProductDetail();
@@ -116,10 +132,9 @@ export default function DetailProduct() {
                                             }
                                             disabled={outOfStock}
                                             className={`border p-2 w-full rounded font-inter
-                                                ${
-                                                    outOfStock
-                                                        ? "border-gray-300 text-gray-400 cursor-not-allowed"
-                                                        : selected
+                                                ${outOfStock
+                                                    ? "border-gray-300 text-gray-400 cursor-not-allowed"
+                                                    : selected
                                                         ? "border-[#737373] text-[#D4F931] bg-black"
                                                         : "border-[#737373]"
                                                 }
@@ -133,12 +148,8 @@ export default function DetailProduct() {
                         </div>
 
                         <div className="mt-20">
-                            <ButtonComp
-                                text={"Order Now"}
-                                styling={
-                                    "rounded-xl border border-[#E5E5E5] w-full font-inter p-3 text-sm bg-[#D4F931]"
-                                }
-                            />
+
+                            <button onClick={handleOrderNow} className="rounded-xl border border-[#E5E5E5] w-full font-inter p-3 text-sm bg-[#D4F931]">Order Now</button>
 
                             <ButtonComp
                                 text={"Add to Cart"}

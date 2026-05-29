@@ -11,6 +11,7 @@ import DetailProduct from "../pages/DetailProduct";
 import Address from "../pages/Address";
 import CreateAddress from "../pages/CreateAddress";
 import EditAddress from "../pages/EditAddress";
+import CheckOut from "../pages/CheckOut";
 
 export const router = createBrowserRouter([
     {
@@ -27,6 +28,7 @@ export const router = createBrowserRouter([
             { path: "/editaddress/:id", element: <EditAddress /> },
             { path: "/productlist", element: <ProductList /> },
             { path: "/product/:id", element: <DetailProduct /> },
+            { path: "/checkout/", element: <CheckOut /> },
         ]
     },
     {
