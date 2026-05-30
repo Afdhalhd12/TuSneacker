@@ -17,7 +17,7 @@ export default function Login() {
             const response = await fetch("http://localhost:3000/login", {
                 method: "POST",
                 headers: {
-                    "Content-Type" : "application/json",
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
                     email,
@@ -32,7 +32,14 @@ export default function Login() {
             }
 
             localStorage.setItem("token", data.data.token);
-            navigate("/")
+
+
+            if (data.data.data.role === "admin") {
+                navigate("/admin/usermanagement");
+            } else {
+                navigate("/");
+            }
+            
             setMessage(data.message || "Login berhasil");
             alert(data.message)
 

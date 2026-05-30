@@ -12,7 +12,6 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import api from "../utils/API";
 export default function Profile() {
-    const token = localStorage.getItem("token");
     const [user, setUser] = useState(null);
 
     async function getProfile() {

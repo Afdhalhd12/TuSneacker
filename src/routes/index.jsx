@@ -12,6 +12,10 @@ import Address from "../pages/Address";
 import CreateAddress from "../pages/CreateAddress";
 import EditAddress from "../pages/EditAddress";
 import CheckOut from "../pages/CheckOut";
+import Dashboard from "../pages/admin/Dashboard";
+import UserManagement from "../pages/admin/UserManagement";
+import UpdateUser from "../pages/admin/UpdateUser";
+
 
 export const router = createBrowserRouter([
     {
@@ -29,6 +33,9 @@ export const router = createBrowserRouter([
             { path: "/productlist", element: <ProductList /> },
             { path: "/product/:id", element: <DetailProduct /> },
             { path: "/checkout/", element: <CheckOut /> },
+            { path: "/admin/dashboard", element: <Dashboard/> },
+            { path: "/admin/usermanagement", element: <UserManagement/> },
+            { path: "/admin/updateuser/:id", element: <UpdateUser/> },
         ]
     },
     {
