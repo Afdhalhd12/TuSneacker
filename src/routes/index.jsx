@@ -15,6 +15,8 @@ import CheckOut from "../pages/CheckOut";
 import Dashboard from "../pages/admin/Dashboard";
 import UserManagement from "../pages/admin/UserManagement";
 import UpdateUser from "../pages/admin/UpdateUser";
+import ProductManagement from "../pages/admin/ProductManagement";
+import UpdateProduct from "../pages/admin/UpdateProduct";
 
 
 export const router = createBrowserRouter([
@@ -35,6 +37,8 @@ export const router = createBrowserRouter([
             { path: "/checkout/", element: <CheckOut /> },
             { path: "/admin/dashboard", element: <Dashboard/> },
             { path: "/admin/usermanagement", element: <UserManagement/> },
+            { path: "/admin/productmanagement", element: <ProductManagement/> },
+            { path: "/admin/updateproduct/:id", element: <UpdateProduct/> },
             { path: "/admin/updateuser/:id", element: <UpdateUser/> },
         ]
     },

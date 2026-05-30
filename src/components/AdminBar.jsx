@@ -25,8 +25,8 @@ export default function AdminBar() {
                         </div>
 
                         <div className="mt-5">
-                            <Link to="/orderhistory">
-                                <button className={location.pathname === "/profile" || location.pathname === "/editprofile"  ? "h-full font-inter border-s-5 flex items-center text-[#D4F931]  gap-2 text-[16px] bg-[#f7fce4] w-full p-3 rounded-2xl" : "h-full font-inter flex items-center gap-2 text-[16px] text-[#585757]  w-full p-3 rounded-2xl"}>
+                            <Link to="/admin/usermanagement">
+                                <button className={location.pathname === "/admin/usermanagement" || location.pathname === "/admin/updateuser/"   ? "h-full font-inter border-s-5 flex items-center text-[#D4F931]  gap-2 text-[16px] bg-[#f7fce4] w-full p-3 rounded-2xl" : "h-full font-inter flex items-center gap-2 text-[16px] text-[#585757]  w-full p-3 rounded-2xl"}>
                                     <IoPerson size={20} />User Management
                                 </button>
                             </Link>

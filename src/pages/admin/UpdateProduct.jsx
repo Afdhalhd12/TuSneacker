@@ -4,20 +4,27 @@ import { useNavigate, useParams } from "react-router-dom";
 import api from "../../utils/API";
 import AdminBar from "../../components/AdminBar";
 
-export default function UpdateUser() {
+export default function UpdateProduct() {
     const { id } = useParams();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
     const [name, setName] = useState("");
-    const [photoProfile, setPhotoProfile] = useState(null);
+    const [description, setDescription] = useState("");
+    const [price, setPrice] = useState(null);
+    const [brand, setBrand] = useState("");
+    const [category, setCategory] = useState("");
+    const [image, setImage] = useState(null);
+    const [oldImage, setOldImage] = useState("");
     const [message, setMessage] = useState("");
     const navigate = useNavigate();
 
-    async function getUser() {
+    async function getProducts() {
         try {
-            const response = await api.get('/showuser/' + id);
-            setEmail(response.data.data.email);
+            const response = await api.get('/product/' + id);
             setName(response.data.data.name);
+            setDescription(response.data.data.description);
+            setPrice(response.data.data.price);
+            setBrand(response.data.data.brand);
+            setCategory(response.data.data.category);
+            setOldImage(response.data.data.image);
         } catch (error) {
             console.log(error.response?.data || error.message);
         }
@@ -28,30 +35,35 @@ export default function UpdateUser() {
         const formData = new FormData();
 
         formData.append("name", name);
-        formData.append("email", email);
+        formData.append("description", description);
+        formData.append("price", price);
+        formData.append("brand", brand);
+        formData.append("category", category);
 
-        if (password) {
-            formData.append("password", password)
-        }
 
-        if (photoProfile) {
-            formData.append("photoProfile", photoProfile);
+
+        if (image) {
+            formData.append("image", image);
         }
         try {
-            const response = await api.put("/updateuser/" + id, formData);
+            const response = await api.put("/product/" + id, formData);
 
             alert(response.data.message);
-            navigate("/admin/usermanagement");
+            navigate("/admin/productmanagement");
 
         } catch (error) {
-            setMessage(error.message);
+            console.log(error.response?.data);
+            console.log(error.response?.status);
+            setMessage(
+                error.response?.data?.message || error.message
+            );
         }
     }
 
 
 
     useEffect(() => {
-        getUser();
+        getProducts();
     }, []);
     return (
         <div className="bg-[#f8f8f8] min-h-screen">
@@ -68,8 +80,8 @@ export default function UpdateUser() {
                                 <div className="flex items-center gap-3">
                                     <img
                                         src={
-                                            photoProfile
-                                                ? URL.createObjectURL(photoProfile) : "well"
+                                            image
+                                                ? URL.createObjectURL(image) : oldImage
 
                                         }
                                         className="w-35 h-35 rounded-full object-cover"
@@ -82,7 +94,7 @@ export default function UpdateUser() {
                                             <input
                                                 type="file"
                                                 className="hidden"
-                                                onChange={(e) => setPhotoProfile(e.target.files[0])}
+                                                onChange={(e) => setImage(e.target.files[0])}
                                             />
                                         </label>
 
@@ -116,36 +128,51 @@ export default function UpdateUser() {
                                             className="w-full font-inter bg-[#f3f3f3] rounded-xl p-3 border border-[#737373]"
                                         />
                                     </div>
+                                    <div className="mt-5">
+                                        <label className="font-inter">
+                                            Price
+                                        </label>
+
+                                        <input
+                                            type="number"
+                                            value={price}
+                                            onChange={(e) =>
+                                                setPrice(e.target.value)
+                                            }
+                                            placeholder="Type Your Name"
+                                            className="w-full font-inter bg-[#f3f3f3] rounded-xl p-3 border border-[#737373]"
+                                        />
+                                    </div>
 
                                     <div className="mt-5">
                                         <div className="grid grid-cols-4 gap-5">
 
                                             <div className="col-span-2">
                                                 <label className="font-inter">
-                                                    Email Address
+                                                    Brand
                                                 </label>
 
                                                 <input
-                                                    type="email"
-                                                    value={email}
+                                                    type="text"
+                                                    value={brand}
                                                     onChange={(e) =>
-                                                        setEmail(e.target.value)
+                                                        setBrand(e.target.value)
                                                     }
-                                                    placeholder="Type Your Email"
+                                                    placeholder="Type brand the product"
                                                     className="w-full font-inter bg-[#f3f3f3] rounded-xl p-3 border border-[#737373]"
                                                 />
                                             </div>
 
                                             <div className="col-span-2">
                                                 <label className="font-inter">
-                                                    Password
+                                                    category
                                                 </label>
 
                                                 <input
-                                                    type="password"
-                                                    value={password}
+                                                    type="text"
+                                                    value={category}
                                                     onChange={(e) =>
-                                                        setPassword(e.target.value)
+                                                        setCategory(e.target.value)
                                                     }
                                                     placeholder="Leave empty if no change"
                                                     className="w-full font-inter bg-[#f3f3f3] rounded-xl p-3 border border-[#737373]"
@@ -165,7 +192,6 @@ export default function UpdateUser() {
                                         <div className="flex justify-center gap-2 mt-5">
                                             <button
                                                 type="submit"
-                                                onClick={() => navigate("/admin/usermanagement")}
                                                 className="rounded-xl border border-[#E5E5E5] font-inter text-white w-100 font-bold p-2 text-sm bg-black"
                                             >
                                                 Save Changes
@@ -173,7 +199,7 @@ export default function UpdateUser() {
 
                                             <button
                                                 type="button"
-                                                onClick={() => navigate("/admin/usermanagement")}
+                                                onClick={() => navigate("/admin/productmanagement")}
                                                 className="rounded-xl border border-[#737373] font-inter text-black w-100 font-bold p-2 text-sm bg-[#f8f8f8]"
                                             >
                                                 Cancel
