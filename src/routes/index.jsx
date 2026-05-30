@@ -17,6 +17,7 @@ import UserManagement from "../pages/admin/UserManagement";
 import UpdateUser from "../pages/admin/UpdateUser";
 import ProductManagement from "../pages/admin/ProductManagement";
 import UpdateProduct from "../pages/admin/UpdateProduct";
+import StockManagement from "../pages/admin/StockManagement";
 
 
 export const router = createBrowserRouter([
@@ -40,6 +41,7 @@ export const router = createBrowserRouter([
             { path: "/admin/productmanagement", element: <ProductManagement/> },
             { path: "/admin/updateproduct/:id", element: <UpdateProduct/> },
             { path: "/admin/updateuser/:id", element: <UpdateUser/> },
+            { path: "/admin/:id/stock", element: <StockManagement/> },
         ]
     },
     {

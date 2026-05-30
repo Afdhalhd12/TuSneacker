@@ -7,13 +7,14 @@ import PaginationComp from "../../components/PaginationComp";
 import SearchComp from "../../components/SearchComp";
 import { Link } from "react-router-dom";
 import { MdOutlineDelete, MdOutlineEdit } from "react-icons/md";
+import { IoIosAdd } from "react-icons/io";
 
 export default function ProductManagement() {
-    
+
     const [products, setProducts] = useState(null);
     const [search, setSearch] = useState("");
     const [totalProducts, setTotalProducts] = useState(0);
-    
+
     const [currentPage, setCurrentPage] = useState(1);
     const [sort, setSort] = useState({
         sortBy: "",
@@ -48,8 +49,8 @@ export default function ProductManagement() {
 
             setProducts(response.data.data.data);
             setTotalProducts(response.data.data.total);
-            
-            
+
+
 
 
         } catch (error) {
@@ -148,7 +149,7 @@ export default function ProductManagement() {
                                 </div>
                                 <div className="flex items-center gap-4">
                                     <span className="text-sm text-gray-500">Total Users: <b className="text-gray-800">{totalProducts}</b></span>
-                                    <button  className="text-sm font-semibold text-gray-700 border border-gray-300 rounded-lg px-4 py-1.5">↓ Export Users</button>
+                                    <button className="text-sm font-semibold text-gray-700 border border-gray-300 rounded-lg px-4 py-1.5">↓ Export Users</button>
                                 </div>
                             </div>
 
@@ -185,6 +186,11 @@ export default function ProductManagement() {
                                                     <Link to={`/admin/updateproduct/${product.id}`}>
                                                         <button className="w-8 h-8 border border-[#E5E5E5] bg-[#f8f8f8] rounded-xl flex items-center justify-center hover:bg-[#E5E5E5] transition">
                                                             <MdOutlineEdit size={15} className="text-[#737373]" />
+                                                        </button>
+                                                    </Link>
+                                                    <Link to={`/admin/${product.id}/stock`}>
+                                                        <button className="w-8 h-8 border border-[#E5E5E5] bg-[#f8f8f8] rounded-xl flex items-center justify-center hover:bg-[#E5E5E5] transition">
+                                                            <IoIosAdd size={15} className="text-[#737373]" />
                                                         </button>
                                                     </Link>
                                                     <button onClick={(e) => handleDelete(product.id)} className="w-8 h-8 border border-[#E5E5E5] bg-[#f8f8f8] rounded-xl flex items-center justify-center hover:bg-red-50 transition">
